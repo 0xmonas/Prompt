@@ -12,38 +12,41 @@ pragma solidity >=0.8.0 <0.9.0;
 
 
 contract Prompt is ERC721Enumerable, Ownable {
-    using Strings for uint256;
+    error MaxNfts();
 
-    mapping(uint256 => Word) private wordsToTokenId;
+
+    using Strings for uint256;
+    mapping(uint256 => string) private wordsToTokenId;
     uint private fee = 0.01 ether;
     uint256 minted = 0;
     mapping (string => bool) public  newString;
 
-    struct Word {
+    
         string text;
-    }
+    
 
     constructor() ERC721("The Prompt", "TPC") {}
 
     function mint(string memory _Prompt) public payable {
         require(bytes(_Prompt).length <= 421, "MAX LENGTH 421 // Only base64 characters");
         if( newString[_Prompt] == true) {
-        revert(); }
+        revert(); 
+        }
         uint256 supply = totalSupply();
-       require(supply + 1 <= 10000);
+        if(supply + 1 > 10000) {
+        revert MaxNfts();
+      }
        newString[_Prompt] = true;
 
-        Word memory newWord = Word(
-            _Prompt
-        );
+
 
         if (msg.sender != owner()) {
             require(msg.value >= fee, string(abi.encodePacked("Missing fee of ", fee.toString(), " wei")));
         }
 
-        wordsToTokenId[supply + 1] = newWord;
+        wordsToTokenId[supply + 1] = _Prompt;
         _safeMint(msg.sender, supply + 1);
-        minted = minted +1;
+        minted += 1;
         
     }
 
@@ -79,7 +82,7 @@ contract Prompt is ERC721Enumerable, Ownable {
 
         bytes memory title = abi.encodePacked("Prompt #", _tokenId.toString());
         
-        Word memory tokenWord = wordsToTokenId[_tokenId];
+        string memory tokenWord = wordsToTokenId[_tokenId];
         return
             string(
                 bytes.concat(
@@ -88,8 +91,8 @@ contract Prompt is ERC721Enumerable, Ownable {
                         abi.encodePacked(
                             "{"
                                 '"name":"', title, '",'
-                                '"description":"\'', bytes(tokenWord.text), '\' ",'
-                                '"image":"data:image/svg+xml;base64,', buildImage(tokenWord.text), '"'
+                                '"description":"\'', bytes(tokenWord), '\' ",'
+                                '"image":"data:image/svg+xml;base64,', buildImage(tokenWord), '"'
                             "}"
                         )
                     )
