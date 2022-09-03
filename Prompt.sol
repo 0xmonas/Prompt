@@ -61,7 +61,7 @@ contract Prompt is ERC721Enumerable, Ownable {
                     '<path id="path1" d="M7.55,33.94H484M7.55,67.38H484M7.3,100.83H483.74M7.44,134.24H483.88M7.44,167.67H483.88M7.44,201.11H483.88M7.18,234.54H483.62M7.74,267.97H484.19M7.74,301.41H484.19M7.49,334.86H483.92M7.63,368.27H484.07M7.63,401.7H484.07M7.63,435.14H484.07M7.37,468.57H483.8"></path>',
                     '</defs>',
                      '<use xlink:href="#path1" />',
-                     '<text font-size="26.47px" fill="#a9f9d5" font-family="Courier New">',
+                     '<text font-size="26.47px" fill="whitesmoke" font-family="Courier New">',
                      '<textPath xlink:href="#path1">', _Prompt,'</textPath>',"</text>"
                      "</svg>"
                 )
