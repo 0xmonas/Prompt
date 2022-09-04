@@ -11,7 +11,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 pragma solidity >=0.8.0 <0.9.0;
 
 
-contract Prompt is ERC721Enumerable, Ownable {
+contract Prompter is ERC721Enumerable, Ownable {
     error MaxNfts();
 
 
@@ -25,7 +25,7 @@ contract Prompt is ERC721Enumerable, Ownable {
         string text;
     
 
-    constructor() ERC721("The Prompt", "TPC") {}
+    constructor() ERC721("Prompter", "TPC") {}
 
     function mint(string memory _Prompt) public payable {
         require(bytes(_Prompt).length <= 421, "MAX LENGTH 421 // Only base64 characters");
@@ -91,7 +91,7 @@ contract Prompt is ERC721Enumerable, Ownable {
                         abi.encodePacked(
                             "{"
                                 '"name":"', title, '",'
-                                '"description":"\'', bytes(tokenWord), '\' ",'
+                                '"description":"\'', bytes(tokenWord), '\' Prompter is a collection by You and Monas.  ",'
                                 '"image":"data:image/svg+xml;base64,', buildImage(tokenWord), '"'
                             "}"
                         )
