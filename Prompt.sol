@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Author: 
+// Author: @0xmonas
 
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
@@ -33,7 +33,7 @@ contract Prompter is ERC721Enumerable, Ownable {
         revert(); 
         }
         uint256 supply = totalSupply();
-        if(supply + 1 > 10000) {
+        if(supply + 1 > 1000) {
         revert MaxNfts();
       }
        newString[_Prompt] = true;
